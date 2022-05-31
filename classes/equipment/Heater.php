@@ -7,6 +7,9 @@ namespace classes\equipment;
  */
 class Heater
 {
+    /** @var int $mode */
+    private int $mode;
+
     public function __construct(int $mode)
     {
         $this->mode=$mode;
@@ -17,7 +20,7 @@ class Heater
      * @param int $mode
      * @return string
      */
-    public function useHeater(int $mode)
+    public function heaterMode(int $mode)
     {
         if($this->mode==1) {
             return 'Heater work on low power';

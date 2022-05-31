@@ -10,6 +10,7 @@ use classes\equipment\Filter;
 use classes\equipment\FilterSimple;
 use classes\equipment\FilterAdvanced;
 use classes\notification\NotificationType;
+use FFI\Exception;
 
 /**
  * Main class of Aquarium
@@ -28,7 +29,7 @@ class Aquarium
     /** @var Heater */
     private $heater;
 
-    /** @var Filter */
+    /** @var Filter*/
     private $filterType;
 
     /** @var bool */
@@ -39,6 +40,9 @@ class Aquarium
 
     /** @var bool */
     private $light;
+
+    /** @var int */
+    public int $heaterMode;
 
     public function __construct(Fish $fish, Turtle $turtle, Plant $plant, Heater $heater, Filter $filterType, NotificationType $notification)
     {
@@ -54,31 +58,36 @@ class Aquarium
     }
 
     /**
-     * @param int $heaterMode
+     * @param bool $heaterMode
      */
-    public function setHeater(int $heaterMode)
+    public function setHeaterMode($heaterMode)
     {
         $this->heaterMode=$heaterMode;
     }
-
+    
     /**
-     * @return int $heaterMode
+     * @return Heater $heater;
      */
-    public function getHeater(): int
+    public function getHeater()
     {
-        return $this->heater->useHeater($this->heaterMode);
+        return $this->heater;
+    }
+
+    public function useHeater() : void
+    {
+        $this->heater->heaterMode($this->heaterMode);
     }
 
     /**
-     * @param int $filterType
+     * @param Filter $filterType
      */
-    public function setFilter(int $filterType)
+    public function setFilter(Filter $filterType)
     {
         $this->filterType=$filterType;
     }
-
+    
     /**
-     * @return FilterSimple|FilterAdvanced|string
+     * @return FilterSimple|FilterAdvanced|throws
      */
     public function getFilter()
     {
@@ -87,7 +96,7 @@ class Aquarium
         } else if($this->filterType==2) {
             return new FilterAdvanced();
         } else {
-            return 'Incorrect type of filter';
+            throw new Exception('Incorrect type of filter');
         }
     }
 
@@ -152,9 +161,3 @@ class Aquarium
         }
     }
 }
-
-$aquarium= new Aquarium(new Fish(1,1), new Turtle(0,0), new Plant(), new Heater(1), new Filter(1), new NotificationType(1));
-echo '<pre>',print_r($aquarium), '</pre>';
-echo '</br>';
-$res=$aquarium->checkSpecies();
-print_r($res);

@@ -5,6 +5,7 @@ namespace classes\equipment;
 /**
  * Manage type od filter
  */
+
 class Filter
 {
     /**
@@ -16,3 +17,5 @@ class Filter
 
     }
 }
+
+
