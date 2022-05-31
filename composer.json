@@ -1,0 +1,13 @@
+{
+    "name": "autoload/namespacer",
+    "autoload": {
+        "psr-4": {
+            "classes\\": "classes"
+        }
+    },
+    "require": {
+    },
+    "require-dev ": {
+        "phpdocumentor/phpdocumentor":"3.*"
+    }
+}
